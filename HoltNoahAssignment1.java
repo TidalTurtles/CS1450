@@ -54,6 +54,8 @@ public class HoltNoahAssignment1 {
 
         //print out new arrays
 
+        System.out.println("");
+        System.out.println("");
         System.out.println("Array1: Sorted with Even Values");
         System.out.println("--------------------------");
 
