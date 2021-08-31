@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class HoltAssignment1 {
+public class HoltNoahAssignment1 {
 
 	public static void main(String[] args) throws IOException{
 		/*Noah Holt
@@ -17,9 +17,22 @@ public class HoltAssignment1 {
         int[] array2 = {9, 10, 5, 12, 3, 7, 14};
 
         System.out.println("Array1: original");
-        for (i = 0; i < array1.length; i++) {
+        System.out.println("--------------------------");
+        for (int i = 0; i < array1.length; i++) {
 
+            System.out.print("array1[" + i + "] = ");
             System.out.println(array1[i]);
+
+        }
+
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Array2: original");
+        System.out.println("--------------------------");
+        for (int i = 0; i < array2.length; i++) {
+
+            System.out.print("array2[" + i + "] = ");
+            System.out.println(array2[i]);
 
         }
 
