@@ -30,7 +30,7 @@ public class HoltNoahAssignment1 {
             System.out.print("array1[" + i + "] = ");
             System.out.println(array1[i]);
 
-        } // for loop
+        } //print out for loop
 
         System.out.println("");
         System.out.println("");
@@ -42,11 +42,42 @@ public class HoltNoahAssignment1 {
             System.out.print("array2[" + i + "] = ");
             System.out.println(array2[i]);
 
-        } //for loop
+        } //print out for loop
 
-        //sort through and reassign arrays.
+        
 
         //find out how to reassign and place here.
+
+        for (int i = 0; i < array1.length; i++) {
+
+            int isOdd = array1[i];
+            if (isOdd%2 != 0) {
+
+                int j = 0;
+                boolean found = false;
+
+                while (j < array2.length && found == false) {
+
+                    if (array2[j]%2 == 0) {
+                        found = true;
+                    } else {
+                        j = j+1;
+                    }
+
+                } //find even while loop
+
+                if (found == true) {
+
+                    array1[i] = array2[j];
+                    array2[j] = isOdd;
+
+                } //swap it if loop
+
+            } //if array1 odd
+
+        } //swap values for loop
+
+        //sort through and reassign arrays.
 
         Arrays.sort(array1);
         Arrays.sort(array2);
@@ -64,7 +95,7 @@ public class HoltNoahAssignment1 {
             System.out.print("array1[" + i + "] = ");
             System.out.println(array1[i]);
 
-        } // for loop
+        } //print out for loop
 
         System.out.println("");
         System.out.println("");
@@ -76,19 +107,22 @@ public class HoltNoahAssignment1 {
             System.out.print("array2[" + i + "] = ");
             System.out.println(array2[i]);
 
-        } //for loop
+        } //print out for loop
         
         //writing the file
 
         File orderdList = new File("assignment1.txt");
         PrintWriter outputList = new PrintWriter(orderdList);
 
+
+
+        outputList.close();
         //reading the file
 
         Scanner readFile = new Scanner(orderdList);
 
 
-        outputList.close();
+    
         readFile.close();
 
     } //main
