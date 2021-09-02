@@ -158,12 +158,13 @@ public class HoltNoahAssignment1 {
 
         int length = array1.length +array2.length;
         int[] finalArray = new int[length];
-        int k = 0;
         Scanner readFile = new Scanner(orderedList);
 
-        while(readFile.hasNextLine()) {
-            finalArray[k] = readFile.nextInt();
-            k++;
+        for (int q = 0; q < finalArray.length; q++) {
+
+            int read = readFile.nextInt();
+            finalArray[q] = read;
+            
         }
     
         readFile.close();
