@@ -111,27 +111,70 @@ public class HoltNoahAssignment1 {
         
         //writing the file
 
-        File orderdList = new File("assignment1.txt");
-        PrintWriter outputList = new PrintWriter(orderdList);
+        File orderedList = new File("assignment1.txt");
+        PrintWriter outputList = new PrintWriter(orderedList);
 
         int i = 0;
         int j = 0;
         while (i < array1.length && j < array2.length) {
 
+            if (array1[i] < array2[j]) {
 
+                outputList.println(array1[i]);
+                i ++;
 
-        }
+            } else if (array2[j] < array1[i]) {
+
+                outputList.println(array2[j]);
+                j ++;
+
+            } //if to print
+
+        } //while to print
+        //for leftover values
+        while (i < array1.length || j < array2.length) {
+
+            if (i < array1.length){
+
+                outputList.println(array1[i]);
+                i ++;
+
+            } else if(j < array2.length) {
+
+                outputList.println(array2[j]);
+                j ++;
+
+            }//if 
+
+        }//While loop
 
         outputList.close();
+
+        System.out.println("");
+        System.out.println("File is in directory: " + orderedList.getAbsolutePath());
+        System.out.println("");
+
         //reading the file
 
         int length = array1.length +array2.length;
         int[] finalArray = new int[length];
-        Scanner readFile = new Scanner(orderdList);
+        int k = 0;
+        Scanner readFile = new Scanner(orderedList);
 
-
+        while(readFile.hasNextLine()) {
+            finalArray[k] = readFile.nextInt();
+            k++;
+        }
     
         readFile.close();
+
+        //print final array
+        for (int q = 0; q < finalArray.length; q++) {
+
+            System.out.print("FinalArray[" + q + "] = ");
+            System.out.println(finalArray[q]);
+
+        } //print out for loop
 
     } //main
     
