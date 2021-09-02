@@ -114,11 +114,19 @@ public class HoltNoahAssignment1 {
         File orderdList = new File("assignment1.txt");
         PrintWriter outputList = new PrintWriter(orderdList);
 
+        int i = 0;
+        int j = 0;
+        while (i < array1.length && j < array2.length) {
 
+
+
+        }
 
         outputList.close();
         //reading the file
 
+        int length = array1.length +array2.length;
+        int[] finalArray = new int[length];
         Scanner readFile = new Scanner(orderdList);
 
 
