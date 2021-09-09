@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch HoltNoahAssignment2",
+      "request": "launch",
+      "mainClass": "HoltNoahAssignment2",
+      "projectName": "CS1450_d8ac218b"
+    },
+    {
+      "type": "java",
       "name": "Launch HoltNoahAssignment1",
       "request": "launch",
       "mainClass": "HoltNoahAssignment1",
