@@ -52,7 +52,17 @@ public class HoltNoahAssignment2{
 				actors[i] = aDroid;
 				break;
 
-			}
+			} //ends switch
+
+		} //ends for loop
+		//first table header
+		System.out.println("-------------------------------------------------------------------------");
+		System.out.println("Actor Name			Type			Motto to Live By");	
+		System.out.println("-------------------------------------------------------------------------");
+		//print first table
+		for(int i = 0; i < actors.length; i++) {
+
+			System.out.println(actors[i].getName() + "			" + actors[i].getType() + "				" + actors[i].motto());
 
 		}
 
@@ -68,7 +78,7 @@ class Actor {
 	private String type;
 	private String name;
 
-	public Actor(String type, String name) {
+	public Actor(String name, String type) {
 
 		this.type = type;
 		this.name = name;
@@ -93,16 +103,17 @@ class Actor {
 
 	} //default motto
 
-}
+} //actor
 
 class Hero extends Actor {
 
 	public Hero(String name) {
 
-		
+		super(name, "Hero");
 
 	} //hero
 
+	@Override
 	public String motto() {
 
 		return "To the rescue! KAPOW!! BAM!!! POW!!!!";
@@ -115,10 +126,11 @@ class Villain extends Actor {
 
 	public Villain(String name) {
 
-		
+		super(name, "Villian");
 
 	} //villian
 
+	@Override
 	public String motto() {
 
 		return "You'll never stop me! HAHAHAHA!!";
@@ -131,10 +143,11 @@ class Monster extends Actor {
 
 	public Monster(String name) {
 
-
+		super(name, "Monster");
 
 	} //monster
 
+	@Override
 	public String motto() {
 
 		return "RRAAAUGGHH GRROWR!!!!";
@@ -145,14 +158,13 @@ class Monster extends Actor {
 
 class Droid extends Actor {
 
-	private String name;
-
 	public Droid(String name) {
 
-
+		super(name, "Droid");
 
 	} //droid
 
+	@Override
 	public String motto() {
 
 		return "Beep Beep Bloop Boop Beep!";
