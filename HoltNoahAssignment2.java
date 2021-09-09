@@ -56,7 +56,17 @@ class actor {
 
 class hero extends actor {
 
+	public hero(String name) {
 
+		
+
+	}
+
+	public String motto() {
+
+		return "To the rescue! KAPOW!! BAM!!! POW!!!!";
+
+	}
 
 }
 
