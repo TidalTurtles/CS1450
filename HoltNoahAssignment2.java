@@ -62,7 +62,7 @@ public class HoltNoahAssignment2{
 		//print first table
 		for(int i = 0; i < actors.length; i++) {
 
-			System.out.println(actors[i].getName() + "			" + actors[i].getType() + "				" + actors[i].motto());
+			System.out.println(actors[i].getName() + "			" + actors[i].getType() + "			" + actors[i].motto());
 
 		}
 
