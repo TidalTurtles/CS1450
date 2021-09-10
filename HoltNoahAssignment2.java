@@ -65,8 +65,14 @@ public class HoltNoahAssignment2{
 			System.out.println(actors[i].getName() + "			" + actors[i].getType() + "			" + actors[i].motto());
 
 		}
+		System.out.println("");
+		System.out.println("");
 
 		readActors.close();
+
+		//create movie
+		new Movie().selectCast(actors);
+		new Movie().printMovieDetails();
 
     } //main
 
@@ -133,7 +139,7 @@ class Villain extends Actor {
 	@Override
 	public String motto() {
 
-		return "You'll never stop me! HAHAHAHA!!";
+		return "You'll never stop me! MUAHAHAHAHA!!";
 
 	} //villian motto
 
@@ -175,11 +181,51 @@ class Droid extends Actor {
 
 class Movie {
 
+	private int numHeros = 0;
+	private int numVillains = 0;
+	private int movieActors = 0;
+	private Actor[] movieCast;
+
 	public Movie() {
 
 
 
 	} //movie
+
+	public void selectCast(Actor[] actors) {
+
+		for(int i = 0; i < actors.length; i++) {
+
+			if(actors[i] instanceof Hero) {
+				movieCast[movieActors] = actors[i];
+				movieActors++;
+				numHeros++;
+
+			} else if(actors[i] instanceof Villain) {
+				movieCast[movieActors] = actors[i];
+				movieActors++;
+				numVillains++;
+			} //if
+
+		} //for
+
+	}//cast calling
+
+	public void printMovieDetails() {
+
+		System.out.println("--------------------------------------");
+		System.out.println("Heros Vs Villains Feature Film");
+		System.out.println("--------------------------------------");
+		System.out.println("Heros = " + numHeros);
+		System.out.println("Villains = " + numVillains);
+		System.out.println("");
+		for(int i = 0; i < movieActors; i++) {
+
+			System.out.println(movieCast[i].getType() + "	---	" + movieCast[i].getName());
+
+		}
+
+	}
     
 } //movie
 
