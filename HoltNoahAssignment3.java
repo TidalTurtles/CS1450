@@ -1,11 +1,18 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class HoltNoahAssignment3 {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 
+        //open file and scanner
+        File birdList = new File("Birds.txt");
+        Scanner readBirds = new Scanner(birdList);
+        //open array list
         ArrayList<bird> birds;
-        //need open file and place in array list
+        
         //call displayBirds
         //call findSwimmers
         //call swimmingRace
