@@ -42,7 +42,7 @@ public class HoltNoahAssignment3 {
 
         
         
-        //call displayBirds
+        displayBirds(birds);
         //call findSwimmers
         //call swimmingRace
 
@@ -54,7 +54,16 @@ public class HoltNoahAssignment3 {
 
     public static void displayBirds(ArrayList<Bird> birds){
 
+        System.out.println("Birds and Abilities");
+        System.out.println("-----------------------------------------------");
+        
+        for(int i = 0; i < birds.size(); i++) {
+            
+            System.out.println(birds.get(i).getName() + " is a " + birds.get(i).getType());
+            System.out.println(birds.get(i).strangeFact());
+            System.out.println("Swim Speed: "  + "\t" + "Run Speed: " + "\t" + "Flying Altitude: ");
 
+        }
 
     } //display
     /*
@@ -92,28 +101,29 @@ abstract class Bird {
     private String type;
     private String name;
 
-    public void setType(String type) {
-
-        this.type = type;
-
-    } //set type
     public String getType() {
 
         return type;
  
     } //get type
 
+    public void setType(String type) {
+
+        this.type = type;
+
+    } //set type
+
+    public String getName() { 
+
+            return name;
+
+    } //get name
+
     public void setName(String name) {
 
         this.name = name;
 
     } //set name
-
-    public String getName() { 
-
-        return name;
-
-    } //get name
 
     abstract String strangeFact();
 
@@ -123,7 +133,7 @@ class Penguin extends Bird implements Swimmer, Runner{
 
     public Penguin(String name, int runSpeed, int swimSpeed) {
 
-
+        super();
 
     } //construct
 
@@ -145,7 +155,7 @@ class Ostrich extends Bird implements Runner, Swimmer{
 
     public Ostrich(String name, int runSpeed, int swimSpeed) {
 
-
+        super();
 
     } //construct
 
@@ -167,7 +177,7 @@ class SootyTern extends Bird implements Runner, Flyer{
 
     public SootyTern(String name, int runSpeed, int flySpeed) {
 
-
+        super();
 
     } //construct
 
@@ -190,8 +200,8 @@ class Loon extends Bird implements Swimmer, Flyer{
 
     public Loon(String name, int swimSpeed, int flySpeed) {
 
+        super();
 
-        
     } //construct
     @Override
     public String strangeFact() {
