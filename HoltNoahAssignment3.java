@@ -26,21 +26,28 @@ public class HoltNoahAssignment3 {
 
             if(birdType.equals("penguin")) {
                 Penguin aPenguin = new Penguin(birdName, birdRun, birdSwim);
+                aPenguin.setName(birdName);
+                aPenguin.setType(birdType);
                 birds.add(aPenguin);
             } else if(birdType.equals("ostrich")){
                 Ostrich aOstrich = new Ostrich(birdName, birdRun, birdSwim);
+                aOstrich.setName(birdName);
+                aOstrich.setType(birdType);
                 birds.add(aOstrich);
             } else if(birdType.equals("sootytern")) {
                 SootyTern aSootyTern = new SootyTern(birdName, birdRun, birdFly);
+                aSootyTern.setName(birdName);
+                aSootyTern.setType(birdType);
                 birds.add(aSootyTern);
             }else {
                 Loon aLoon = new Loon(birdName, birdSwim, birdFly);
+                aLoon.setName(birdName);
+                aLoon.setType(birdType);
                 birds.add(aLoon);
             } //if
 
         } // for
 
-        
         
         displayBirds(birds);
         //call findSwimmers
@@ -59,10 +66,26 @@ public class HoltNoahAssignment3 {
         
         for(int i = 0; i < birds.size(); i++) {
             
+            System.out.println(" ");
             System.out.println(birds.get(i).getName() + " is a " + birds.get(i).getType());
             System.out.println(birds.get(i).strangeFact());
-            System.out.println("Swim Speed: "  + "\t" + "Run Speed: " + "\t" + "Flying Altitude: ");
 
+            //had to hard code this for while I try to figure out how to search if fly is aplicable to each class? not sure but if it gets left like this you now know why.
+            if(birds.get(i).getType().equals("penguin") || birds.get(i).getType().equals("ostrich") || birds.get(i).getType().equals("loon")){ //if bird can swim
+                System.out.print("Swim Speed: "  + "\t");
+            } else { //no swim
+                System.out.print("Swim Speed: 0"  + "\t");
+            }
+            if(birds.get(i).getType().equals("penguin") ||birds.get(i).getType().equals("ostrich") || birds.get(i).getType().equals("sootytern")){ //if bird can run
+                System.out.print("Run Speed: "  + "\t");
+            } else { //no run
+                System.out.print("Run Speed: 0"  + "\t");
+            }
+            if(birds.get(i).getType().equals("sootytern") || birds.get(i).getType().equals("loon")){
+                System.out.print("Flying Altitude: "  + "\t");
+            } else { //no fly
+                System.out.print("Flying Altitude: 0"  + "\t");
+            }
         }
 
     } //display
@@ -107,9 +130,9 @@ abstract class Bird {
  
     } //get type
 
-    public void setType(String type) {
+    public void setType(String birdType) {
 
-        this.type = type;
+        this.type = birdType;
 
     } //set type
 
@@ -119,9 +142,9 @@ abstract class Bird {
 
     } //get name
 
-    public void setName(String name) {
+    public void setName(String birdName) {
 
-        this.name = name;
+        this.name = birdName;
 
     } //set name
 
@@ -133,7 +156,7 @@ class Penguin extends Bird implements Swimmer, Runner{
 
     public Penguin(String name, int runSpeed, int swimSpeed) {
 
-        super();
+        
 
     } //construct
 
@@ -155,7 +178,7 @@ class Ostrich extends Bird implements Runner, Swimmer{
 
     public Ostrich(String name, int runSpeed, int swimSpeed) {
 
-        super();
+        
 
     } //construct
 
@@ -177,7 +200,7 @@ class SootyTern extends Bird implements Runner, Flyer{
 
     public SootyTern(String name, int runSpeed, int flySpeed) {
 
-        super();
+        
 
     } //construct
 
@@ -200,7 +223,7 @@ class Loon extends Bird implements Swimmer, Flyer{
 
     public Loon(String name, int swimSpeed, int flySpeed) {
 
-        super();
+        
 
     } //construct
     @Override
