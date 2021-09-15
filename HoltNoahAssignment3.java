@@ -11,17 +11,42 @@ public class HoltNoahAssignment3 {
         File birdList = new File("Birds.txt");
         Scanner readBirds = new Scanner(birdList);
         //open array list
-        ArrayList<bird> birds;
+        ArrayList<Bird> birds;
         
         //call displayBirds
         //call findSwimmers
         //call swimmingRace
 
+
+        //remember to close scanner
+        readBirds.close();
+
     } //main
+
+    public static void displayBirds(ArrayList<Bird> birds){
+
+
+
+    } //display
+    /*
+    public static ArrayList<Bird> findSwimmers(ArrayList<Bird> birds) {
+
+        ArrayList<Bird> swimmingBirds;
+
+        return swimmingBirds;
+
+    }
+    
+    public static Bird swimmingRace (ArrayList<Bird> swimmingBirds) {
+        
+        
+    }*/
+
+
 
 } //assignment
 
-class bird { //make this abstract
+class Bird { //make this abstract
 
     private String type;
     private String name;
@@ -42,7 +67,7 @@ class bird { //make this abstract
 
 } //bird
 
-class Penguin extends bird{
+class Penguin extends Bird{
 
     public Penguin(String name, int runSpeed, int swimSpeed) {
 
@@ -52,7 +77,7 @@ class Penguin extends bird{
 
 } //penguin
 
-class Ostrich extends bird{
+class Ostrich extends Bird{
 
     public Ostrich(String name, int runSpeed, int swimSpeed) {
 
@@ -62,7 +87,7 @@ class Ostrich extends bird{
 
 } //Ostrich
 
-class Duck extends bird{
+class Duck extends Bird{
 
     public Duck(String name) {
 
@@ -72,7 +97,7 @@ class Duck extends bird{
 
 } //duck
 
-class SootyTern extends bird{
+class SootyTern extends Bird{
 
     public SootyTern(String name, int runSpeed, int flySpeed) {
 
@@ -82,7 +107,7 @@ class SootyTern extends bird{
 
 } //SootyTern
 
-class Loon extends bird{
+class Loon extends Bird{
 
     public Loon(String name, int swimSpeed, int flySpeed) {
 
@@ -91,7 +116,7 @@ class Loon extends bird{
 
 } //loon
 
-class HummingBird extends bird {
+class HummingBird extends Bird {
 
     public HummingBird(String name) {
 
