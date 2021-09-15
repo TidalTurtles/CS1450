@@ -76,15 +76,15 @@ public class HoltNoahAssignment3 {
 } //assignment
 
 interface Swimmer {
-    abstract void swim();
+    abstract int swim(int swimSpeed);
 } //swimmer
 
 interface Runner {
-    abstract void run();
+    abstract int run(int runSpeed);
 } //runner
 
 interface Flyer {
-    abstract void fly();
+    abstract int fly(int flySpeed);
 } //flyer
 
 abstract class Bird { 
@@ -119,7 +119,7 @@ abstract class Bird {
 
 } //bird
 
-class Penguin extends Bird{
+class Penguin extends Bird implements Swimmer, Runner{
 
     public Penguin(String name, int runSpeed, int swimSpeed) {
 
@@ -130,10 +130,18 @@ class Penguin extends Bird{
     public String strangeFact() {
         return "I can't fly but I'm the fastest swimmer and the deepest diver and can stay underwater up to 20 minutes.";
     } //strange penguin
+    @Override
+    public int swim(int swimSpeed) {
+        return swimSpeed;
+    }
+    @Override
+    public int run(int runSpeed){
+        return runSpeed;
+    }
 
 } //penguin
 
-class Ostrich extends Bird{
+class Ostrich extends Bird implements Runner, Swimmer{
 
     public Ostrich(String name, int runSpeed, int swimSpeed) {
 
@@ -144,10 +152,18 @@ class Ostrich extends Bird{
     public String strangeFact() {
         return "Who needs flying when you're the biggest bird on earth! I can be up to 9 feet tall and weigh up to 300 punds - bring it on!";
     } //strange ostrich
+    @Override
+    public int swim(int swimSpeed) {
+        return swimSpeed;
+    }
+    @Override
+    public int run(int runSpeed) {
+        return runSpeed;
+    }
 
 } //Ostrich
 
-class SootyTern extends Bird{
+class SootyTern extends Bird implements Runner, Flyer{
 
     public SootyTern(String name, int runSpeed, int flySpeed) {
 
@@ -158,18 +174,36 @@ class SootyTern extends Bird{
     public String strangeFact() {
         return "Strange as it may sound, I spend most of my life at sea and I can't swim but I can nap while flying!";
     } //strange tern
+    @Override
+    public int fly(int flySpeed) {
+        return flySpeed;
+    }
+    @Override
+    public int run(int runSpeed) {
+        return runSpeed;
+    }
 
 } //SootyTern
 
-class Loon extends Bird{
+class Loon extends Bird implements Swimmer, Flyer{
+    
 
     public Loon(String name, int swimSpeed, int flySpeed) {
 
 
+        
     } //construct
-
+    @Override
     public String strangeFact() {
         return "My legs are so far back on my body that I cannot walkd on land, so I push myself along the ground on my chest.";
     } // strange loon
+    @Override
+    public int swim(int swimSpeed) {
+        return swimSpeed;
+    }
+    @Override
+    public int fly(int flySpeed) {
+        return flySpeed;
+    }
 
 } //loon
