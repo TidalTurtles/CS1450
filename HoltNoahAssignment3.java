@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+
 public class HoltNoahAssignment3 {
     
     public static void main(String[] args) throws IOException{
@@ -28,21 +30,29 @@ public class HoltNoahAssignment3 {
                 Penguin aPenguin = new Penguin(birdName, birdRun, birdSwim);
                 aPenguin.setName(birdName);
                 aPenguin.setType(birdType);
+                aPenguin.setRunSpeed(birdRun);
+                aPenguin.setSwimSpeed(birdSwim);
                 birds.add(aPenguin);
             } else if(birdType.equals("ostrich")){
                 Ostrich aOstrich = new Ostrich(birdName, birdRun, birdSwim);
                 aOstrich.setName(birdName);
                 aOstrich.setType(birdType);
+                aOstrich.setRunSpeed(birdRun);
+                aOstrich.setSwimSpeed(birdSwim);
                 birds.add(aOstrich);
             } else if(birdType.equals("sootytern")) {
                 SootyTern aSootyTern = new SootyTern(birdName, birdRun, birdFly);
                 aSootyTern.setName(birdName);
                 aSootyTern.setType(birdType);
+                aSootyTern.setFlySpeed(birdFly);
+                aSootyTern.setRunSpeed(birdRun);
                 birds.add(aSootyTern);
             }else {
                 Loon aLoon = new Loon(birdName, birdSwim, birdFly);
                 aLoon.setName(birdName);
                 aLoon.setType(birdType);
+                aLoon.setFlySpeed(birdFly);
+                aLoon.setSwimSpeed(birdSwim);
                 birds.add(aLoon);
             } //if
 
@@ -71,18 +81,18 @@ public class HoltNoahAssignment3 {
             System.out.println(birds.get(i).strangeFact());
 
             //had to hard code this for while I try to figure out how to search if fly is aplicable to each class? not sure but if it gets left like this you now know why.
-            if(birds.get(i).getType().equals("penguin") || birds.get(i).getType().equals("ostrich") || birds.get(i).getType().equals("loon")){ //if bird can swim
-                System.out.print("Swim Speed: "  + "\t");
+            if(birds.get(i) instanceof Swimmer){ //if bird can swim
+                System.out.print("Swim Speed: "+ ((Swimmer)birds.get(i)).swim() + "\t");
             } else { //no swim
                 System.out.print("Swim Speed: 0"  + "\t");
             }
-            if(birds.get(i).getType().equals("penguin") ||birds.get(i).getType().equals("ostrich") || birds.get(i).getType().equals("sootytern")){ //if bird can run
-                System.out.print("Run Speed: "  + "\t");
+            if(birds.get(i) instanceof Runner){ //if bird can run
+                System.out.print("Run Speed: "+ ((Runner)birds.get(i)).run() + "\t");
             } else { //no run
                 System.out.print("Run Speed: 0"  + "\t");
             }
-            if(birds.get(i).getType().equals("sootytern") || birds.get(i).getType().equals("loon")){
-                System.out.print("Flying Altitude: "  + "\t");
+            if(birds.get(i) instanceof Flyer){
+                System.out.print("Flying Altitude: "+ ((Flyer)birds.get(i)).fly() + "\t");
             } else { //no fly
                 System.out.print("Flying Altitude: 0"  + "\t");
             }
@@ -108,15 +118,15 @@ public class HoltNoahAssignment3 {
 } //assignment
 
 interface Swimmer {
-    abstract int swim(int swimSpeed);
+    abstract int swim();
 } //swimmer
 
 interface Runner {
-    abstract int run(int runSpeed);
+    abstract int run();
 } //runner
 
 interface Flyer {
-    abstract int fly(int flySpeed);
+    abstract int fly();
 } //flyer
 
 abstract class Bird { 
@@ -153,28 +163,44 @@ abstract class Bird {
 } //bird
 
 class Penguin extends Bird implements Swimmer, Runner{
+    private int swimSpeed;
+    private int runSpeed;
 
     public Penguin(String name, int runSpeed, int swimSpeed) {
 
         
 
-    } //construct
+    }
 
+    public void setSwimSpeed(int swimSpeed) {
+
+        this.swimSpeed = swimSpeed;
+
+    }
+    public void setRunSpeed(int runSpeed) {
+
+        this.runSpeed = runSpeed;
+
+    }
+
+    @Override
     public String strangeFact() {
         return "I can't fly but I'm the fastest swimmer and the deepest diver and can stay underwater up to 20 minutes.";
     } //strange penguin
     @Override
-    public int swim(int swimSpeed) {
+    public int swim() {
         return swimSpeed;
     }
     @Override
-    public int run(int runSpeed){
+    public int run(){
         return runSpeed;
     }
 
 } //penguin
 
 class Ostrich extends Bird implements Runner, Swimmer{
+    private int runSpeed;
+    private int swimSpeed;
 
     public Ostrich(String name, int runSpeed, int swimSpeed) {
 
@@ -182,21 +208,35 @@ class Ostrich extends Bird implements Runner, Swimmer{
 
     } //construct
 
+    public void setSwimSpeed(int swimSpeed) {
+
+        this.swimSpeed = swimSpeed;
+
+    }
+    public void setRunSpeed(int runSpeed) {
+
+        this.runSpeed = runSpeed;
+
+    }
+    
+    @Override
     public String strangeFact() {
         return "Who needs flying when you're the biggest bird on earth! I can be up to 9 feet tall and weigh up to 300 punds - bring it on!";
     } //strange ostrich
     @Override
-    public int swim(int swimSpeed) {
+    public int swim() {
         return swimSpeed;
     }
     @Override
-    public int run(int runSpeed) {
+    public int run() {
         return runSpeed;
     }
 
 } //Ostrich
 
 class SootyTern extends Bird implements Runner, Flyer{
+    private int runSpeed;
+    private int flySpeed;
 
     public SootyTern(String name, int runSpeed, int flySpeed) {
 
@@ -204,38 +244,63 @@ class SootyTern extends Bird implements Runner, Flyer{
 
     } //construct
 
+    public void setFlySpeed(int flySpeed) {
+
+        this.flySpeed = flySpeed;
+
+    }
+    public void setRunSpeed(int runSpeed) {
+
+        this.runSpeed = runSpeed;
+
+    }
+    
+    @Override
     public String strangeFact() {
         return "Strange as it may sound, I spend most of my life at sea and I can't swim but I can nap while flying!";
     } //strange tern
     @Override
-    public int fly(int flySpeed) {
+    public int fly() {
         return flySpeed;
     }
     @Override
-    public int run(int runSpeed) {
+    public int run() {
         return runSpeed;
     }
 
 } //SootyTern
 
 class Loon extends Bird implements Swimmer, Flyer{
-    
+    private int swimSpeed;
+    private int flySpeed;
 
     public Loon(String name, int swimSpeed, int flySpeed) {
 
         
 
     } //construct
+
+    public void setSwimSpeed(int swimSpeed) {
+
+        this.swimSpeed = swimSpeed;
+
+    }
+    public void setFlySpeed(int flySpeed) {
+
+        this.flySpeed = flySpeed;
+
+    }
+    
     @Override
     public String strangeFact() {
         return "My legs are so far back on my body that I cannot walkd on land, so I push myself along the ground on my chest.";
     } // strange loon
     @Override
-    public int swim(int swimSpeed) {
+    public int swim() {
         return swimSpeed;
     }
     @Override
-    public int fly(int flySpeed) {
+    public int fly() {
         return flySpeed;
     }
 
