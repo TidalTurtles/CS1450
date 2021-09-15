@@ -14,6 +14,7 @@ public class HoltNoahAssignment3 {
         Scanner readBirds = new Scanner(birdList);
         //open array list
         ArrayList<Bird> birds = new ArrayList<Bird>();
+        
 
         //creating the array list.
         int numBirds = readBirds.nextInt();
@@ -60,7 +61,17 @@ public class HoltNoahAssignment3 {
 
         
         displayBirds(birds);
-        //call findSwimmers
+
+        ArrayList<Bird> swimBirds= findSwimmers(birds);
+        //printing birds that can swimm
+        System.out.println("-------------------------------------------------");
+        System.out.println("Bird    Type    SwimSpeed");
+        System.out.println("-------------------------------------------------");
+        for(int i = 0; i < swimBirds.size(); i++) {
+            System.out.println(swimBirds.get(i).getName() + "\t" + swimBirds.get(i).getType() + "\t" + ((Swimmer)swimBirds.get(i)).swim());
+        }
+        System.out.println("");
+
         //call swimmingRace
 
 
@@ -99,20 +110,27 @@ public class HoltNoahAssignment3 {
         }
 
     } //display
-    /*
+    
     public static ArrayList<Bird> findSwimmers(ArrayList<Bird> birds) {
 
-        ArrayList<Bird> swimmingBirds;
+        ArrayList<Bird> swimmingBirds = new ArrayList<Bird>();
+
+        for(int i = 0; i < birds.size(); i++) {
+            if (birds.get(i) instanceof Swimmer) {
+                swimmingBirds.add(birds.get(i));
+            }
+        }
 
         return swimmingBirds;
 
     }
     
+    /*
     public static Bird swimmingRace (ArrayList<Bird> swimmingBirds) {
         
         
-    }*/
-
+    }
+*/
 
 
 } //assignment
