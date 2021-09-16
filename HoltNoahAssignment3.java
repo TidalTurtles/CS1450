@@ -72,8 +72,13 @@ public class HoltNoahAssignment3 {
         }
         System.out.println("");
 
-        //call swimmingRace
-
+        Bird bestSwimmer = swimmingRace(swimBirds);
+        //print out swim race winner
+        System.out.println("-------------------------------------------------");
+        System.out.println("Swim Race Winner");
+        System.out.println("-------------------------------------------------");
+        System.out.println("Swimming birds get ready... get set... GO!!!");
+        System.out.println("The winner is " + bestSwimmer.getName() + " the " + bestSwimmer.getType() + " swimming at " + ((Swimmer)bestSwimmer).swim() + " mph!");
 
         //remember to close scanner
         readBirds.close();
@@ -107,6 +112,7 @@ public class HoltNoahAssignment3 {
             } else { //no fly
                 System.out.print("Flying Altitude: 0"  + "\t");
             }
+            System.out.println(" ");
         }
 
     } //display
@@ -125,12 +131,21 @@ public class HoltNoahAssignment3 {
 
     }
     
-    /*
-    public static Bird swimmingRace (ArrayList<Bird> swimmingBirds) {
+    
+    public static Bird swimmingRace(ArrayList<Bird> swimBirds) {
         
+        Bird winner = swimBirds.get(0);
+            
         
+        for(int i = 1; i < swimBirds.size(); i ++) {
+            if(((Swimmer)winner).swim() < ((Swimmer)swimBirds.get(i)).swim()) {
+                winner = swimBirds.get(i);
+            }
+        }
+        
+        return winner;
     }
-*/
+
 
 
 } //assignment
