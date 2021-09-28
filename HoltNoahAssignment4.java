@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class HoltNoahAssignment4 {
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
 
         //open things up
         File trainList = new File("Trains.txt");
@@ -17,26 +17,39 @@ public class HoltNoahAssignment4 {
         Railroad myRailroad = new Railroad(numSortingTracks);
 
         //send in the trains
-        for(int i = 0; i < numSortingTracks; i++) {
+        for(int i = 0; i < 6; i++) { //hard coded 6 because of missing values
+            // need to figure out how to itterate through without the hardcode.
 
             int trackNum = readTrains.nextInt();
             int engineNumber = readTrains.nextInt();
             String companyName = readTrains.next();
             int carNumber = readTrains.nextInt();
             String trainType = readTrains.next();
-            String trainCity = readTrains.nextLine();
+            String trainCity = readTrains.next().trim();
 
             //now make train
             Train aTrain = new Train(engineNumber, companyName, carNumber, trainType, trainCity);
             //send to sorting yard
             myRailroad.addTrainToSortingYard(trackNum, aTrain);
-            
-        }
 
-        // closing out
+        } // for loop
+
+        //closing out
         readTrains.close();
 
+        myRailroad.displaySortingYard();
+        
+
+        
+        
+
     } // main method
+
+    public static void printTrainReport(Railroad railroad) {
+
+        
+
+    }
 
 } //assignment class
 
@@ -59,7 +72,7 @@ class Railroad {
 
     public void addTrainToSortingYard(int trackNumber, Train train) {
 
-
+        sortingYard[trackNumber] = train;
 
     } // add trains
 
@@ -68,6 +81,32 @@ class Railroad {
         return sortingYard[1]; //place holder
 
     } //get trains
+
+    public void displaySortingYard() {
+       
+        // header of table
+        System.out.println("---------------------------------------------------------------------");
+        String printable = String.format("%s\t%s\t%s\t\t%s\t%s\t%s", "Tracks", "Engine", "Company", "Rail Cars", "Type", "Destination");
+        System.out.println(printable);
+        System.out.println("---------------------------------------------------------------------");
+
+        // print actual trains
+        for(int i = 0; i < sortingYard.length; i++) {
+
+            //if null
+            if(sortingYard[i] == null) {
+                System.out.print(i);
+                String printBlank = String.format("\t%s\t%s\t\t%s\t%s\t%s", "---", "---", "---", "---", "---");
+                System.out.println(printBlank);
+            } else {
+                System.out.print(i);
+                String printActual = String.format("\t%d\t%s\t\t%d\t%s\t%s", sortingYard[i].getEngineNumber(), sortingYard[i].getCompany(), sortingYard[i].getNumRailCars(), sortingYard[i].getType(), sortingYard[i].getCity());
+                System.out.println(printActual);
+            } // if else
+
+        } // display for loop
+
+    } // display table 
 
 } //railroad class
 
@@ -81,7 +120,11 @@ class Train implements Comparable<Train>{
 
     public Train(int engineNumber, String company, int numRailCars, String type, String destinationCity) {
 
-
+        this.engineNumber = engineNumber;
+        this.company = company;
+        this.numRailCars = numRailCars;
+        this.type = type;
+        this.destinationCity = destinationCity;
 
     } // train method
 
@@ -101,7 +144,7 @@ class Train implements Comparable<Train>{
         return this.type;
     } // get type
 
-    public String getCity(String destinationCity) {
+    public String getCity() {
         return this.destinationCity;
     } // get city
 
