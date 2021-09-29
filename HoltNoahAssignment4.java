@@ -17,8 +17,7 @@ public class HoltNoahAssignment4 {
         Railroad myRailroad = new Railroad(numSortingTracks);
 
         //send in the trains
-        for(int i = 0; i < 6; i++) { //hard coded 6 because of missing values
-            // need to figure out how to itterate through without the hardcode.
+        while(readTrains.hasNext()) { 
 
             int trackNum = readTrains.nextInt();
             int engineNumber = readTrains.nextInt();
@@ -32,7 +31,7 @@ public class HoltNoahAssignment4 {
             //send to sorting yard
             myRailroad.addTrainToSortingYard(trackNum, aTrain);
 
-        } // for loop
+        } // while loop
 
         //closing out
         readTrains.close();
