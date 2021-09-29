@@ -84,6 +84,7 @@ class Railroad {
 
     public Railroad(int numberTracks) {
 
+        this.numberTracks = numberTracks;
         sortingYard = new Train[numberTracks];
 
     } // railroad method
@@ -187,9 +188,9 @@ class Train implements Comparable<Train> {
     public int compareTo(Train otherTrain) {
 
         if(numRailCars < otherTrain.numRailCars) {
-            return -1;
-        } else if (numRailCars > otherTrain.numRailCars) {
             return 1;
+        } else if (numRailCars > otherTrain.numRailCars) {
+            return -1;
         } else {
             return 0;
         } //if else
