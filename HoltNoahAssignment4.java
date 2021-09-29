@@ -1,6 +1,8 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -38,7 +40,7 @@ public class HoltNoahAssignment4 {
 
         myRailroad.displaySortingYard();
         
-
+        printTrainReport(myRailroad);
         
         
 
@@ -46,9 +48,32 @@ public class HoltNoahAssignment4 {
 
     public static void printTrainReport(Railroad railroad) {
 
-        
+        // init array list
+        ArrayList<Train> reportTrains = new ArrayList<Train>();
+        // put trains in array list
+        for(int i = 0; i < railroad.getNumberTracks(); i++) {
 
-    }
+            if(railroad.getTrainInSortingYard(i) != null){
+                reportTrains.add(railroad.getTrainInSortingYard(i));
+            } // single if
+
+        } // for loop
+
+        //now to sort trains
+        Collections.sort(reportTrains);
+
+        // finally print it out
+        System.out.println("-------------------------------------------------------");
+        System.out.println(String.format("\t\t%s", "Train Report"));
+        System.out.println(String.format("\t%s", "(Ordered by Number of Rail Cars)"));
+        System.out.println("-------------------------------------------------------");
+        System.out.println(String.format("%s\t%s\t\t%s\t%s\t\t%s", "Engine", "Company", "Rail Cars", "Type", "Departing to"));
+        System.out.println("-------------------------------------------------------");
+        for(int i = 0; i < reportTrains.size(); i++) {
+            System.out.println(reportTrains.get(i).toString());
+        } //display for loop
+
+    } // print display
 
 } //assignment class
 
@@ -63,7 +88,7 @@ class Railroad {
 
     } // railroad method
 
-    public int getNumberTracks(int numberTracks) {
+    public int getNumberTracks() {
 
         return this.numberTracks;
 
@@ -75,10 +100,14 @@ class Railroad {
 
     } // add trains
 
-    public Train getTrainInSortingYard(int numberTracks) {
+    public Train getTrainInSortingYard(int trackNumber) {
 
-        return sortingYard[1]; //place holder
-
+       if(sortingYard[trackNumber] == null) {
+           return null;
+       } else {
+           return sortingYard[trackNumber];
+       } // if else
+        
     } //get trains
 
     public void displaySortingYard() {
@@ -109,7 +138,7 @@ class Railroad {
 
 } //railroad class
 
-class Train implements Comparable<Train>{
+class Train implements Comparable<Train> {
 
     private int engineNumber;
     private String company;
