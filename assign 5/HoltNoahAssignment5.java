@@ -57,9 +57,17 @@ public class HoltNoahAssignment5 {
        printMyStack(numStack);
        System.out.println(" ");
 
+       //sorted print
+       System.out.println("Sorted Number Stack");
+       System.out.println("---------------------------------------------------------------");
+       GenericStack<Integer> sortNums = new GenericStack<Integer>();
+       sortStack(numStack, sortNums);
+       printMyStack(sortNums);
+       System.out.println(" ");
 
-
-       //
+       //displayAppearanceCounts
+       displayAppearanceCounts(sortNums);
+       System.out.println(" ");
 
        //part2b: strings.txt (same as 2a but with strings not ints)
        File stringList = new File("strings.txt");
@@ -76,6 +84,18 @@ public class HoltNoahAssignment5 {
        System.out.println("Strings from file placed on string stack (unsorted)");
        System.out.println("---------------------------------------------------------------");
        printMyStack(stringStack);
+       System.out.println(" ");
+
+       //sorted print
+       System.out.println("Sorted String Stack");
+       System.out.println("---------------------------------------------------------------");
+       GenericStack<String> sortString = new GenericStack<String>();
+       sortStack(stringStack, sortString);
+       printMyStack(sortString);
+       System.out.println(" ");
+
+       //displayAppearanceCounts
+       displayAppearanceCounts(sortString);
        System.out.println(" ");
 
     } //main method
@@ -112,13 +132,13 @@ public class HoltNoahAssignment5 {
         int iteration = stack.size();
         Stack<Integer> placeHolder = new Stack<Integer>();
 
-        //re-orient stack so reading from front to back
+        //just print and place
         for(int i = 0; i < iteration; i++) {
+            System.out.println(stack.peek());
             placeHolder.push(stack.pop());
         }
-        // now print and reassign to original stack
+        // reorder
         for(int i = 0; i < iteration; i++) {
-            System.out.println(placeHolder.peek());
             stack.push(placeHolder.pop());
         }
 
@@ -133,13 +153,13 @@ public class HoltNoahAssignment5 {
         int iteration = stack.getSize();
         GenericStack<E> placeHolder = new GenericStack<E>();
 
-        //re-orient stack so reading from front to back
+        //print and place
         for(int i = 0; i < iteration; i++) {
+            System.out.println(stack.peek());
             placeHolder.push(stack.pop());
         }
-        // now print and reassign to original stack
+        // re order
         for(int i = 0; i < iteration; i++) {
-            System.out.println(placeHolder.peek());
             stack.push(placeHolder.pop());
         }
 
@@ -147,13 +167,50 @@ public class HoltNoahAssignment5 {
 
     public static <E extends Comparable<E>> void sortStack(GenericStack<E> unsortedStack, GenericStack<E> sortedStack) {
 
+        while (!unsortedStack.isEmpty()) {
+           
+            E currentValue = unsortedStack.pop();
+            
+            while(!sortedStack.isEmpty() && sortedStack.peek().compareTo(currentValue) < 0) {
+                unsortedStack.push(sortedStack.pop());
+            } // inside while
 
+            sortedStack.push(currentValue);
+
+        } //overaching while
 
     } // sort stack method.
 
     public static <E extends Comparable<E>> void displayAppearanceCounts(GenericStack<E> stack) {
 
+        GenericStack<E> blankStack = new GenericStack<E>();
+        while(!stack.isEmpty()) {
 
+            E currentValue = stack.pop();
+            blankStack.push(currentValue);
+            int counter = 1;
+            boolean done = false;
+
+            while(!stack.isEmpty() && !done) {
+
+                E nextValue = stack.pop();
+                blankStack.push(nextValue);
+                if(currentValue.compareTo(nextValue) == 0) {
+                    counter += 1;
+                }else {
+                    done = true;
+                    stack.push(nextValue);
+                }
+
+            } // inside
+            
+            while(!blankStack.isEmpty()) {
+                blankStack.pop();
+            } //
+
+            System.out.println(currentValue + " appeared " + counter + " time(s) on the stack");
+
+        } //Over arching while
 
     } // display appearance method
 
