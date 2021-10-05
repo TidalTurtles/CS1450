@@ -76,8 +76,11 @@ public class HoltNoahAssignment5 {
 
 class GenericStack<E> {
 
+    private ArrayList<E> list = new ArrayList<E>();
+
     public GenericStack() {
 
+        
 
     } //generic stack method
 
