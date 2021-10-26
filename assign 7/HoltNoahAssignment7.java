@@ -39,7 +39,7 @@ public class HoltNoahAssignment7 {
 	public static void main(String[] args) throws IOException {
 		
 		// Name of file to read from
-		final String TRAINS_FILE_NAME = "Trains.txt";	
+		final String TRAINS_FILE_NAME = "Trains7.txt";	
 
 		// Setup a file reference variable to refer to text file
 		File trainsFileName = new File(TRAINS_FILE_NAME);
