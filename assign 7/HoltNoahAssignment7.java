@@ -5,13 +5,36 @@
 // This solution code may not be copied, doing so will result in a grade of zero.
 // This solution is not for distribution online or by any other means. Copyright M. Gonzalez UCCS
 
+// Went ahead and downloaded the solutions for this code
+//just in case there was something wrong or different about
+//mine that I might have missed so that I can start where I 
+//need to with something that is definitely working and set up for 
+//this particular assignment.
+//Also noticing a lot more comments in the solutions than I ever
+//put in any assignment, will try to do better about that from here 
+//on I guess (sorry this is the first time I have ever actually
+//looked at a solutions document)
+
+//oops forgot this step in the last assignment
+/*Noah Holt
+ * CS1450 Data Structures
+ * T/Thr section
+ * Due 28 Oct
+ * Assignment 7
+ * This assignment is an extention of assignment for where
+ * we get to practice and utilize the different queue types
+ * using our different train objects and the associated classes
+ * and methods and also add some new ones (a departure and receiving 
+ * methods in particular).
+ */
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class CS1450_Assignment4_Fall2021 {
+public class HoltNoahAssignment7 {
 
 	public static void main(String[] args) throws IOException {
 		
