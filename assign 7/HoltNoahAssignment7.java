@@ -108,7 +108,7 @@ class RailroadF21 {
 	
 	private int numberTracks;													// Number of tracks the sorting yard contains
 	private TrainF21[] sortingYard;												// Yard where trains are assembled and wait to move to main line
-	private Queue<Integer> receivingTrack = new LinkedList<>();					// Regular Queue of Rail Cars
+	private Queue<RailCarF21> receivingTrack = new LinkedList<>();					// Regular Queue of Rail Cars
 	private PriorityQueue<TrainF21> departureTrack = new PriorityQueue<>();		// Priority queue to depart the largest train
 								// This is a HAS-A relationship - Railroad HAS-A sorting yard
 								// Don't make an arrayList because of insertion rules
@@ -170,10 +170,11 @@ class RailroadF21 {
 
 	//assignment 7 methods
 
+	//receiving rail cars
 	//first to check if receiving is empty
-	public boolean isReceivingTrackEmpty(Queue<Integer> checkQueue) {
+	public boolean isReceivingTrackEmpty() {
 
-		if(checkQueue.isEmpty() == true) {
+		if(receivingTrack.isEmpty() == true) {
 			return true;
 		} else {
 			return false;
@@ -182,18 +183,71 @@ class RailroadF21 {
 	} //is empty
 
 	//need to add things to the queue
-	public void addRailCarToReceivingTrack(Queue<Integer> aQueue, RailCarF21 railCar) {
+	public void addRailCarToReceivingTrack(RailCarF21 railCar) {
 
-
+		receivingTrack.add(railCar);
 
 	} //adding cars
 
 	//take it away too
-	public void removeRailCarFromReceivingTrack() {
+	public RailCarF21 removeRailCarFromReceivingTrack() {
 
-
+		RailCarF21 notIn = receivingTrack.remove();
+		return notIn;
 
 	} //take it away
+
+	//departing Trains
+	//is it empty
+	public boolean isDepartureTrackEmpty() {
+
+		if(departureTrack.isEmpty() == true) {
+			return true;
+		} else {
+			return false;
+		} // if else
+
+	} //is it empty
+
+	//add on those trains
+	public void addTrainToDepartureTrack(TrainF21 departingTrain) {
+		departureTrack.add(departingTrain);
+	} //add on those trains
+
+	//done with train so remove
+	public TrainF21 removeTrainFromDepartureTrack() {
+		TrainF21 notIn = departureTrack.remove();
+		return notIn;
+	} //take it away boys
+
+	//other methods to add for assignment 7
+	//find the train to give the railcar with same destination and type
+	public int findTrain(RailCarF21 railcar) {
+		
+		return 1; //place holder
+
+	} //finding the train
+
+	//add rail cars to train queue
+	public void addRailCarToTrainInSortingYard(RailCarF21 railcar, int trackNumber) {
+
+
+
+	} //add it on
+
+	// remove the train from sorting yard track
+	public void removeTrainFromSortingYard(int trackNumber) {
+
+
+
+	} // take it out of the sorting yard
+
+	//display the receiving track
+	public void displayReceivingTrack() {
+
+
+
+	} //displaying receiving track
 
 } // RailroadYard
 
@@ -206,7 +260,7 @@ class TrainF21 implements Comparable<TrainF21>{
 	private int numberRailCars;		    					// Number of rail cars the train contains
 	private String type;									// Type of train (i.e. passenger, freight, etc.)
 	private String destinationCity;							// Where train is departing to
-	private Queue<Integer> railCars = new LinkedList<>(); 	// represents rail cars to make up the trains
+	private Queue<RailCarF21> railCars = new LinkedList<>(); 	// represents rail cars to make up the trains
 
 	// Create a train
 	public TrainF21 (int engineNumber, String company, int numberRailCars, String type, String destinationCity) {
@@ -215,7 +269,7 @@ class TrainF21 implements Comparable<TrainF21>{
 		this.numberRailCars = numberRailCars;
 		this.type = type;
 		this.destinationCity = destinationCity;
-		railCars.offer(numberRailCars);
+		Queue<RailCarF21> railCars = new LinkedList<>();
 	}
 	
 	public int getEngineNumber() {
@@ -272,6 +326,13 @@ class TrainF21 implements Comparable<TrainF21>{
 
 	} // compareTo
 
+	//assignment 7 update
+
+	//adding Rail cars
+	public void addRailCar(RailCarF21 railcar) {
+		railCars.offer(railcar);
+	} //adding rail cars
+
 } // Train
 
 // Rail Cars for assignment 7
@@ -317,4 +378,30 @@ class RailCarF21 {
 	} //make String
  
 } //Rail car class
+
+//need the controller to play
+class RailroadControllerF21 {
+
+	//place cars in receiving queue then move to trains in sorting yard
+	public void moveRailCarsToTrains (RailroadF21 railroad) {
+
+
+
+	} //move rail cars
+
+	//move trains from sorting yard to departure track and prints
+	public void moveTrainsToDepartureTrack(RailroadF21 railroad) {
+
+
+
+	} // move trains
+
+	//sends trains out for departure
+	public void clearedForDeparture(RailroadF21 railroad) {
+
+
+
+	} //clear it out
+
+} //controller Class
 
