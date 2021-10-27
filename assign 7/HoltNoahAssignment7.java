@@ -32,21 +32,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.LinkedList;
 
 public class HoltNoahAssignment7 {
 
 	public static void main(String[] args) throws IOException {
 		
-		// Name of file to read from
-		final String TRAINS_FILE_NAME = "Trains7.txt";	
+		// Name of files to read from
+		final String TRAINS_FILE_NAME = "Trains7.txt";
+		final String RAIL_CARS_FILE_NAME = "RailCars7.txt";	
 
 		// Setup a file reference variable to refer to text file
 		File trainsFileName = new File(TRAINS_FILE_NAME);
+		File railCarsFileName = new File(RAIL_CARS_FILE_NAME);
 
 		// Open the file for reading by creating a scanner for the file
 		// First value in the file tells how many tracks the railroad sorting yard contains
 		Scanner trainsFile = new Scanner (trainsFileName);
+		Scanner railCarsFile = new Scanner (railCarsFileName);
 		int numberTracks = trainsFile.nextInt();
 
 		// Create the railroad with the number of sorting yard tracks specified in the file
@@ -79,62 +86,17 @@ public class HoltNoahAssignment7 {
 
 		} // while more trains
 
-		// Close the trains file
+		// Close the trains files
 		trainsFile.close();
+		railCarsFile.close();
 
 		///Display the railroad's sorting yard  
 		railroad.displaySortingYard();
 
-		// Print the report showing the trains in the railroad's sorting yard from the longest to shortest
-		printTrainReport(railroad);
+		// Now to start assignment 7
+
 
 	} // main
-
-	
-	// Create and display a report of all trains in the sorting yard
-	// The trains will be displayed based on the the number of rail cars, from longest to shortest.
-	public static void printTrainReport (RailroadF21 railroad) {
-		
-		// Create an array list to store the trains in the sorting yard
-		ArrayList<TrainF21> trainReport = new ArrayList<>();
-
-		// For each track in the railroad's sorting yard, if there is a train on the track 
-		// add the train to the array list.  
-		for (int track = 0; track < railroad.getNumberTracks(); track++) {
-			
-			// Gets the train in the sorting yard
-			TrainF21 train = railroad.getTrainInSortingYard(track);
-			
-			// If there is a train on the current sorting yard track, place train into the array list
-			if (train != null) {
-				trainReport.add(train);
-			}
-			
-		} // for each track
-			
-		// Sort the trains stored in the array list - the compareTo method is based on the train's number of 
-		// rail cars. We can use the Collections sort method since the Train class implements Comparable  
-		Collections.sort(trainReport);
-
-		// Display the engine name, company, number rails cars, type, and destination city for each train 
-		// from longest to shortest 
-		System.out.println("\n\n*****************************************************************************");
-		System.out.println("\t\t\tTRAIN REPORT");
-		System.out.println("\t\t(Ordered by Number of Rail Cars)");
-		System.out.println("*****************************************************************************");
-		System.out.printf ("Engine\tCompany\t\tRail Cars\tType\t\tDeparting To\n");
-		System.out.println("-----------------------------------------------------------------------------");
-		
-		for (int i = 0; i < trainReport.size(); i++) {
-			// Student Note: I explicitly called the toString method but the call is actually not needed.
-			// The means writing the code this way also works:  
-			//      System.out.println(trainReport.get(i));
-			// Java calls toString automatically on a train when printing a train and since we overwrote 
-			// toString, the overwritten code will be used instead of the toString method in Object class.
-			System.out.println(trainReport.get(i).toString());
-		}
-
-	} // printTrainReport
 
 } // Assignment4
 
@@ -144,10 +106,12 @@ public class HoltNoahAssignment7 {
 // several tracks.  The sorting yard is modeled with an array.
 class RailroadF21 {
 	
-	private int numberTracks;			// Number of tracks the sorting yard contains
-	private TrainF21[] sortingYard;		// Yard where trains are assembled and wait to move to main line
-										// This is a HAS-A relationship - Railroad HAS-A sorting yard
-										// Don't make an arrayList because of insertion rules
+	private int numberTracks;													// Number of tracks the sorting yard contains
+	private TrainF21[] sortingYard;												// Yard where trains are assembled and wait to move to main line
+	private Queue<Integer> receivingTrack = new LinkedList<>();					// Regular Queue of Rail Cars
+	private PriorityQueue<TrainF21> departureTrack = new PriorityQueue<>();		// Priority queue to depart the largest train
+								// This is a HAS-A relationship - Railroad HAS-A sorting yard
+								// Don't make an arrayList because of insertion rules
 	
 	public RailroadF21 (int numberTracks) {
 		this.numberTracks = numberTracks;
@@ -210,11 +174,12 @@ class RailroadF21 {
 // Represents a train 
 class TrainF21 implements Comparable<TrainF21>{
 	
-	private int engineNumber;			// Train's engine number
-	private String company;				// Train's company such as BNSF, CSX, Union Pacific, etc
-	private int numberRailCars;		    // Number of rail cars the train contains
-	private String type;				// Type of train (i.e. passenger, freight, etc.)
-	private String destinationCity;		// Where train is departing to
+	private int engineNumber;								// Train's engine number
+	private String company;									// Train's company such as BNSF, CSX, Union Pacific, etc
+	private int numberRailCars;		    					// Number of rail cars the train contains
+	private String type;									// Type of train (i.e. passenger, freight, etc.)
+	private String destinationCity;							// Where train is departing to
+	private Queue<Integer> railCars = new LinkedList<>(); 	// represents rail cars to make up the trains
 
 	// Create a train
 	public TrainF21 (int engineNumber, String company, int numberRailCars, String type, String destinationCity) {
@@ -223,6 +188,7 @@ class TrainF21 implements Comparable<TrainF21>{
 		this.numberRailCars = numberRailCars;
 		this.type = type;
 		this.destinationCity = destinationCity;
+		railCars.offer(numberRailCars);
 	}
 	
 	public int getEngineNumber() {
