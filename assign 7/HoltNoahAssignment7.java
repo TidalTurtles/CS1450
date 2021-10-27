@@ -168,6 +168,33 @@ class RailroadF21 {
 		
 	} // displaySortingYard
 
+	//assignment 7 methods
+
+	//first to check if receiving is empty
+	public boolean isReceivingTrackEmpty(Queue<Integer> checkQueue) {
+
+		if(checkQueue.isEmpty() == true) {
+			return true;
+		} else {
+			return false;
+		}
+
+	} //is empty
+
+	//need to add things to the queue
+	public void addRailCarToReceivingTrack(Queue<Integer> aQueue, RailCarF21 railCar) {
+
+
+
+	} //adding cars
+
+	//take it away too
+	public void removeRailCarFromReceivingTrack() {
+
+
+
+	} //take it away
+
 } // RailroadYard
 
 
@@ -246,4 +273,48 @@ class TrainF21 implements Comparable<TrainF21>{
 	} // compareTo
 
 } // Train
+
+// Rail Cars for assignment 7
+
+class RailCarF21 {
+
+	//class private vars
+	int carNumber;
+	String carType;
+	String carDestination;
+
+	//constructor
+	public RailCarF21(int carNumber, String carType, String carDestination) {
+
+		//initialize vars
+		this.carNumber = carNumber;
+		this.carType = carType;
+		this.carDestination = carDestination;
+
+	} //rail car constructor
+
+	//getters
+
+	//getnum
+	public int getCarNumber() {
+		return carNumber;
+	} //get number
+
+	//get type
+	public String getCarType() {
+		return carType;
+	} //get Type
+
+	//get destination
+	public String getCarDestination() {
+		return carDestination;
+	} //get destination
+
+	//make one string
+	public String toString() {
+		String printOut = String.format("%d\t%12s\t%s\n", carNumber, carType, carDestination);
+		return printOut;
+	} //make String
+ 
+} //Rail car class
 
