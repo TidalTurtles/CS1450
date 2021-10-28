@@ -118,6 +118,9 @@ public class HoltNoahAssignment7 {
 		// part c step 1
 		// set up railroad controller  to put the railcars on
 		// the trains and display table as in assignment 
+		RailroadControllerF21 trainAdding = new RailroadControllerF21();
+		System.out.println("");
+		trainAdding.moveRailCarsToTrains(railroad);
 
 
 	} // main
@@ -246,16 +249,39 @@ class RailroadF21 {
 
 	//other methods to add for assignment 7
 	//find the train to give the railcar with same destination and type
+	//return the track number of the train
 	public int findTrain(RailCarF21 railcar) {
 		
-		return 1; //place holder
+		//define what we are looking for.
+		String findType = railcar.getCarType().trim();
+		String findDest = railcar.getCarDestination().trim();
+		boolean isFound = false;
+		int foundTrack = 0;
+
+		//while loop for until found
+		while(!isFound) {
+			for(int i = 0; i < numberTracks; i++) {
+				
+				if(sortingYard[i] != null) {
+					String tempType = sortingYard[i].getType();
+					String tempDest = sortingYard[i].getDestinationCity();
+					boolean checkDest = findDest.equals(tempDest);
+					boolean checkType = findType.equals(tempType);
+					if(checkDest && checkType) {
+						return i;
+					}
+				}//not null
+				
+			} //for loop
+		}//while not found
+		return 0; 
 
 	} //finding the train
 
 	//add rail cars to train queue
 	public void addRailCarToTrainInSortingYard(RailCarF21 railcar, int trackNumber) {
 
-
+		sortingYard[trackNumber].addRailCar(railcar);
 
 	} //add it on
 
@@ -421,9 +447,18 @@ class RailCarF21 {
 class RailroadControllerF21 {
 
 	//place cars in receiving queue then move to trains in sorting yard
-	public void moveRailCarsToTrains (RailroadF21 railroad) {
+	public void moveRailCarsToTrains(RailroadF21 railroad) {
 
-		
+		//move rail cars out and put with right train
+		while(!railroad.isReceivingTrackEmpty()) {
+
+			RailCarF21 temp = railroad.removeRailCarFromReceivingTrack();
+			int whereAt = railroad.findTrain(temp);
+			railroad.addRailCarToTrainInSortingYard(temp, whereAt);
+			//also display the change
+			System.out.printf("Moved to sorting track #%d: rail car %d going to %s (%s)\n", whereAt, temp.getCarNumber(), temp.getCarDestination(), temp.getCarType());
+
+		} //receiving yard is now empty
 
 	} //move rail cars
 
