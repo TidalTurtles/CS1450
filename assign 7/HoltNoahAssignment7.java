@@ -86,6 +86,23 @@ public class HoltNoahAssignment7 {
 
 		} // while more trains
 
+		//now for assignment 7
+
+		//creating rail car objects from the provided file format
+		while(railCarsFile.hasNext()) {
+
+			//set up in file is car num, type, then destination
+			int carNum = railCarsFile.nextInt();
+			String carType = railCarsFile.next();
+			String carDest = railCarsFile.nextLine();
+
+			//use above criteria for the railcar objects
+			//then send those objects to the receiving track
+			RailCarF21 railCar = new RailCarF21(carNum, carType, carDest);
+			railroad.addRailCarToReceivingTrack(railCar);
+
+		} // while rail cars
+
 		// Close the trains files
 		trainsFile.close();
 		railCarsFile.close();
@@ -93,8 +110,9 @@ public class HoltNoahAssignment7 {
 		///Display the railroad's sorting yard  
 		railroad.displaySortingYard();
 
-		// Now to start assignment 7
-
+		// More assignment 7
+		//step 2 is to display the receiving track once filled
+		railroad.displayReceivingTrack();
 
 	} // main
 
@@ -245,7 +263,21 @@ class RailroadF21 {
 	//display the receiving track
 	public void displayReceivingTrack() {
 
+		//table header
+		System.out.println("---------------------------------------------------");
+		System.out.printf("%s\t%s\t%s\n", "Car Number", "Type", "Destination");
+		System.out.println("---------------------------------------------------");
 
+		//itrerate through and display
+		Queue<RailCarF21> tempCars = new LinkedList<>();
+		RailCarF21 tempPrint;
+		while(!receivingTrack.isEmpty()) {
+			tempPrint = receivingTrack.remove();
+			tempCars.add(tempPrint);
+			System.out.println(tempPrint.toString());
+		}
+		//now reset the receiving yard
+		receivingTrack = tempCars;
 
 	} //displaying receiving track
 
@@ -373,7 +405,7 @@ class RailCarF21 {
 
 	//make one string
 	public String toString() {
-		String printOut = String.format("%d\t%12s\t%s\n", carNumber, carType, carDestination);
+		String printOut = String.format("%d\t%12s\t%s", carNumber, carType, carDestination);
 		return printOut;
 	} //make String
  
