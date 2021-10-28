@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -113,15 +114,39 @@ public class HoltNoahAssignment7 {
 
 		// More assignment 7
 		//part b continued is to display the receiving track once filled
+		System.out.println("");
+		System.out.println("Loading rail cars on receiving track...");
+		System.out.println("");
 		railroad.displayReceivingTrack();
 
 		// part c step 1
 		// set up railroad controller  to put the railcars on
 		// the trains and display table as in assignment 
-		RailroadControllerF21 trainAdding = new RailroadControllerF21();
 		System.out.println("");
-		trainAdding.moveRailCarsToTrains(railroad);
+		System.out.println("Starting railroad yard simulation...");
+		System.out.println("");
+		RailroadControllerF21 trainController = new RailroadControllerF21();
+		System.out.println("");
+		trainController.moveRailCarsToTrains(railroad);
 
+		//also display sorting yard afterwards
+		System.out.println("Show sorting yard with trains and railcars...");
+		railroad.displaySortingYard();
+		System.out.println("");
+
+		//part c step 2
+		// moving the trains to prep for departures
+		System.out.println("");
+		trainController.moveTrainsToDepartureTrack(railroad);
+
+		// moving out to the main line
+		System.out.println("");
+		trainController.clearedForDeparture(railroad);
+
+		//final printing
+		System.out.println("");
+		System.out.println("Show sorting yard with no trains...");
+		railroad.displaySortingYard();
 
 	} // main
 
@@ -135,10 +160,10 @@ class RailroadF21 {
 	
 	private int numberTracks;													// Number of tracks the sorting yard contains
 	private TrainF21[] sortingYard;												// Yard where trains are assembled and wait to move to main line
-	private Queue<RailCarF21> receivingTrack = new LinkedList<>();					// Regular Queue of Rail Cars
+	private Queue<RailCarF21> receivingTrack = new LinkedList<>();				// Regular Queue of Rail Cars
 	private PriorityQueue<TrainF21> departureTrack = new PriorityQueue<>();		// Priority queue to depart the largest train
-								// This is a HAS-A relationship - Railroad HAS-A sorting yard
-								// Don't make an arrayList because of insertion rules
+																				// This is a HAS-A relationship - Railroad HAS-A sorting yard
+																				// Don't make an arrayList because of insertion rules
 	
 	public RailroadF21 (int numberTracks) {
 		this.numberTracks = numberTracks;
@@ -256,7 +281,6 @@ class RailroadF21 {
 		String findType = railcar.getCarType().trim();
 		String findDest = railcar.getCarDestination().trim();
 		boolean isFound = false;
-		int foundTrack = 0;
 
 		//while loop for until found
 		while(!isFound) {
@@ -288,7 +312,7 @@ class RailroadF21 {
 	// remove the train from sorting yard track
 	public void removeTrainFromSortingYard(int trackNumber) {
 
-
+		sortingYard[trackNumber] = null;
 
 	} // take it out of the sorting yard
 
@@ -334,6 +358,7 @@ class TrainF21 implements Comparable<TrainF21>{
 		this.type = type;
 		this.destinationCity = destinationCity;
 		Queue<RailCarF21> railCars = new LinkedList<>();
+		
 	}
 	
 	public int getEngineNumber() {
@@ -345,7 +370,7 @@ class TrainF21 implements Comparable<TrainF21>{
 	}
 
 	public int getNumberRailCars() {
-		return numberRailCars;
+		return railCars.size();
 	}
 	
 	public String getType() {
@@ -363,7 +388,7 @@ class TrainF21 implements Comparable<TrainF21>{
 		return String.format("%d\t%s\t\t%d\t\t%-15s\t%s",
 				 engineNumber, 
 				 company, 										
-				 numberRailCars, 
+				 railCars.size(), 
 				 type, 
 				 destinationCity);	
 		
@@ -379,10 +404,10 @@ class TrainF21 implements Comparable<TrainF21>{
 		// Train class we can access numberRailcars directly. Thus, there is no need to use getter.  Also,
 		// the use of "this" is not needed.  I included on this assignment to help make it clear for students.
 		if (this.numberRailCars < otherTrain.numberRailCars) {
-			return 1;
+			return -1;
 		}
 		else if (this.numberRailCars > otherTrain.numberRailCars) {
-			return -1;
+			return 1;
 		}
 		else {
 			return 0;
@@ -449,6 +474,11 @@ class RailroadControllerF21 {
 	//place cars in receiving queue then move to trains in sorting yard
 	public void moveRailCarsToTrains(RailroadF21 railroad) {
 
+		//printing header
+		System.out.println("");		
+		System.out.println("Controller: Moving rail cars from receiving track to correct sorting yard track:");
+		System.out.println("--------------------------------------------------------------------------------------------------");
+		
 		//move rail cars out and put with right train
 		while(!railroad.isReceivingTrackEmpty()) {
 
@@ -459,20 +489,41 @@ class RailroadControllerF21 {
 			System.out.printf("Moved to sorting track #%d: rail car %d going to %s (%s)\n", whereAt, temp.getCarNumber(), temp.getCarDestination(), temp.getCarType());
 
 		} //receiving yard is now empty
+		System.out.println("");
 
 	} //move rail cars
 
 	//move trains from sorting yard to departure track and prints
 	public void moveTrainsToDepartureTrack(RailroadF21 railroad) {
 
+		//section header.
+		System.out.println("Controller: Moving trains from sorting yard to departure track");
+		System.out.println("----------------------------------------------------------------------------");
+		//print train if not null
+		//also move from sorting track to departure track
+		for(int i = 0; i < railroad.getNumberTracks(); i ++) {
 
+			if(railroad.getTrainInSortingYard(i) != null) {
+				System.out.printf("Moved to departure track: Train %d going to %s (%s)\n", railroad.getTrainInSortingYard(i).getEngineNumber(), railroad.getTrainInSortingYard(i).getDestinationCity(), railroad.getTrainInSortingYard(i).getType());
+				railroad.addTrainToDepartureTrack(railroad.getTrainInSortingYard(i));
+				railroad.removeTrainFromSortingYard(i);
+			}
+
+		}//for all trains on sorting track
 
 	} // move trains
 
 	//sends trains out for departure
 	public void clearedForDeparture(RailroadF21 railroad) {
 
-
+		//section header.
+		System.out.println("Controller: Moving trains from departure track to the main line");
+		System.out.println("----------------------------------------------------------------------------");
+		while(!railroad.isDepartureTrackEmpty()) {
+			TrainF21 thisTrain = railroad.removeTrainFromDepartureTrack();
+			System.out.printf("Train %d with %d rail cars is deeparting to %s (%s)\n", thisTrain.getEngineNumber(), thisTrain.getNumberRailCars(), thisTrain.getDestinationCity(), thisTrain.getType());
+		}
+		System.out.println("");
 
 	} //clear it out
 
