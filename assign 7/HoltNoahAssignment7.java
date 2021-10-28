@@ -89,6 +89,7 @@ public class HoltNoahAssignment7 {
 		//now for assignment 7
 
 		//creating rail car objects from the provided file format
+		//part b of this assignment
 		while(railCarsFile.hasNext()) {
 
 			//set up in file is car num, type, then destination
@@ -111,8 +112,13 @@ public class HoltNoahAssignment7 {
 		railroad.displaySortingYard();
 
 		// More assignment 7
-		//step 2 is to display the receiving track once filled
+		//part b continued is to display the receiving track once filled
 		railroad.displayReceivingTrack();
+
+		// part c step 1
+		// set up railroad controller  to put the railcars on
+		// the trains and display table as in assignment 
+
 
 	} // main
 
@@ -417,7 +423,7 @@ class RailroadControllerF21 {
 	//place cars in receiving queue then move to trains in sorting yard
 	public void moveRailCarsToTrains (RailroadF21 railroad) {
 
-
+		
 
 	} //move rail cars
 
