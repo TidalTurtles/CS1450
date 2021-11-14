@@ -23,13 +23,48 @@
  *Step 5: Create double linked list and print backwards
  */
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.LinkedList;
+
 public class HoltNoahAssignment9 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IOException {
 		
-		System.out.println("Hello... Testing");
+		//Step 1 create linked lists
+		ItineraryLinkedList singleList = new ItineraryLinkedList();
+		DoubleLinkedList doubleList = new DoubleLinkedList();
 
+		//Step 2: fill singleListwith first Itinerary
+		//open file for reading
+		File travelPlan = new File("JapanItinerary.txt");
+		Scanner readPlan = new Scanner(travelPlan);
+
+		//read file into objects
+		//file is (Stop(int), Type(string), Name(string), Activity(nextLn))
+		while(readPlan.hasNext()) {
+			//get info
+			int aStop = readPlan.nextInt();
+			String aType = readPlan.next();
+			String aName = readPlan.next();
+			String anActivity = readPlan.nextLine();
+			//make Destination
+			Destination aDestination = new Destination(aStop, aType, aName, anActivity);
+			//place in linked list
+			singleList.addDestination(aDestination);
+		} //while reading file
+		
+		//don't need file any more
+		readPlan.close();
+
+		//print the list after reading
+		singleList.printList();
+		
 	} //Assignment / Main method
 
 } //Assignment Class
@@ -89,7 +124,7 @@ class Destination {
 	} //destination / get activity
 	
 	public String toString() {
-		String format = String.format("%s/t%s/t%s", name, type, activity);
+		String format = String.format("%18s\t%8s\t%s", name, type, activity);
 		return format;
 	} //Destination / to string method
 	
@@ -116,6 +151,16 @@ class ItineraryLinkedList {
 	} //Itinerary / get size
 	
 	public void addDestination(Destination destinationToAdd) {
+
+		//add new dest to FRONT of list and update size
+		Node newNode = new Node(destinationToAdd);
+		if(head == null) {
+			head = newNode;
+		} else{
+			newNode.next = head;
+			head = newNode;
+		}
+		size++;
 		
 	} //Itinerary / add destination
 	
@@ -133,19 +178,35 @@ class ItineraryLinkedList {
 	} //Itinerary / swap nodes
 	
 	public void printList() {
-		
+
+		//get place holder
+		Node iterateMe = head;
+
+		//print table header
+		System.out.println("");
+		System.out.printf("%18s\t%8s\t%s\n", "Dest Name", "Type", "Activity");
+		System.out.println("-----------------------------------------------------------------------------");
+
+		while(iterateMe.next != null) {
+			System.out.println(iterateMe.destination.toString());
+			iterateMe = iterateMe.next;
+		}
+		//finally print last one 
+		System.out.println(iterateMe.destination.toString());
+		System.out.println("");
+
 	} //Itinerary / print the list
 	
 	private class Node {
 		
 		//private fields
-		Destination destination;
-		Node next;
+		private Destination destination;
+		private Node next;
 		
 		//constructor
-		public void node(Destination destination, Node next) {
+		public Node(Destination destination) {
 			this.destination = destination;
-			this.next = next;
+			next = null;
 		} //Node / constructor
 		
 	} //Node inner class Itinerary
