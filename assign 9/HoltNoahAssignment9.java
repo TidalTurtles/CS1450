@@ -36,11 +36,11 @@ public class HoltNoahAssignment9 {
 
 	public static void main(String[] args) throws IOException {
 		
-		//Step 1 create linked lists
+	//Step 1 create linked lists
 		ItineraryLinkedList singleList = new ItineraryLinkedList();
 		DoubleLinkedList doubleList = new DoubleLinkedList();
 
-		//Step 2: fill singleListwith first Itinerary
+	//Step 2: fill singleListwith first Itinerary
 		//open file for reading
 		File travelPlan = new File("JapanItinerary.txt");
 		Scanner readPlan = new Scanner(travelPlan);
@@ -63,6 +63,13 @@ public class HoltNoahAssignment9 {
 		readPlan.close();
 
 		//print the list after reading
+		singleList.printList();
+
+	//Step 3: Sort Itinerary by stop number
+		//bubble sort
+		singleList.bubbleSort();
+		//print again
+		System.out.println("Sorted List");
 		singleList.printList();
 		
 	} //Assignment / Main method
@@ -170,11 +177,33 @@ class ItineraryLinkedList {
 	
 	public void bubbleSort() {
 		
-		
+		// create temp node
+		Node temp = head; //will change in for loop
+		//for stop we want
+		for(int i = 1; i < size; i++) {
+			//create current place holder
+			Node current = temp;
+			//check for stop number
+			while(current.destination.getStop() != i) {
+				current = current.next;
+			}
+			//now current is stop we want
+			swapNodeData(current, temp);
+			//step over temp
+			temp = temp.next;
+			
+		} //for sorting
+
 	} //Itinerary / sort
 	
 	public void swapNodeData(Node node1, Node node2) {
-		
+
+		//temp Dest
+		Destination temp = node1.destination;
+		//perform swap
+		node1.destination = node2.destination;
+		node2.destination = temp;
+
 	} //Itinerary / swap nodes
 	
 	public void printList() {
