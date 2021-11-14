@@ -25,12 +25,8 @@
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
-import java.util.LinkedList;
+
 
 public class HoltNoahAssignment9 {
 
@@ -71,6 +67,39 @@ public class HoltNoahAssignment9 {
 		//print again
 		System.out.println("Sorted List");
 		singleList.printList();
+
+	//Step 4: Update File
+		//open file and scanner
+		File updatedTravelPlan = new File("JapanItineraryUpdates.txt");
+		Scanner readUpdates = new Scanner(updatedTravelPlan);
+
+		//read in from file (format is Dest, Stop, type, name, activity)
+		while(readUpdates.hasNext()) {
+			//get data
+			String aDestination = readUpdates.next();
+			int aStop = readUpdates.nextInt();
+			String aType = readUpdates.next();
+			String aName = readUpdates.next();
+			String anActivity = readUpdates.nextLine();
+			//make dest
+			Destination activeDestination = new Destination(aStop, aType, aName, anActivity);
+			//update single
+			singleList.updateItinerary(aDestination, activeDestination);
+			//also add to double
+			doubleList.addDestination(activeDestination);
+
+		}
+		
+		//done with file
+		readUpdates.close();
+
+		//now print single
+		System.out.println("Add Adventures");
+		singleList.printList();
+
+	//Step 5: Final Step: Double linked list
+		System.out.println("Backwards Adventures");
+		doubleList.printListBackwards();
 		
 	} //Assignment / Main method
 
@@ -173,6 +202,24 @@ class ItineraryLinkedList {
 	
 	public void updateItinerary(String insertBeforeDestinatino, Destination adventureDestination) {
 		
+		//create temp
+		Node temp = head;
+		Node afterTemp = temp.next;
+		//until found 
+		if(insertBeforeDestinatino.equals(temp.destination.getName())) {
+			addDestination(adventureDestination);
+		} else{
+			while(!afterTemp.destination.getName().equals(insertBeforeDestinatino)) {
+				temp = temp.next;
+				afterTemp = temp.next;
+			}// while next is not what we want
+
+			Node adventure = new Node(adventureDestination);
+			adventure.next = afterTemp;
+			temp.next = adventure;
+
+		} //if else insert
+		
 	} //Itinerary / update Itinerary
 	
 	public void bubbleSort() {
@@ -257,21 +304,46 @@ class DoubleLinkedList {
 	
 	public void addDestination(Destination destination) {
 		
+		//add to END of list
+		Node newNode = new Node(destination);
+		if(head == null) { //list is empty
+			head = tail = newNode;
+		} else{ //list not empty
+			tail.next = newNode;
+			newNode.previous = tail;
+			tail = newNode;
+		}
+
 	} //double / add Destination
 	
 	public void printListBackwards() {
 		
+		//create temp node at tail
+		Node temp = tail;
+		//print table header
+		System.out.println("");
+		System.out.printf("%18s\t%8s\t%s\n", "Dest Name", "Type", "Activity");
+		System.out.println("-----------------------------------------------------------------------------");
+
+		//whlie not at head
+		while(temp.previous != null) {
+			System.out.println(temp.destination.toString());
+			temp = temp.previous;
+		}
+		//print head last
+		System.out.println(temp.destination.toString());
+		System.out.println("");
 		
 	} //double / print backwards
 	
-	private class Node {
+	private static class Node {
 		
 		//private data
 		private Destination destination;
 		private Node previous;
 		private Node next;
 		
-		public void node(Destination destination) {
+		public Node(Destination destination) {
 			
 			this.destination = destination;
 			this.previous = null;
