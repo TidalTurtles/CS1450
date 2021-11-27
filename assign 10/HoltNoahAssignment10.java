@@ -62,9 +62,8 @@ import java.util.Scanner;
         return songPhrase;
     } // song getter / parrot class
 
-    //comparitor
+    
     public int compareTo(Parrot otherParrot) {
-
         int compared;
 
         if(id > otherParrot.id) {
@@ -74,10 +73,8 @@ import java.util.Scanner;
         } else {
             compared = 0;
         }
-
         return compared;
-
-    } //compare / parrot class
+    }
 
  } //parrot Class
 
@@ -96,9 +93,87 @@ class BinaryTree {
     //insert parrot
     public boolean insert(Parrot addMe) {
 
+        if(root == null) {
+            root.parrot = addMe;
+        } else {
+
+            //place holder nodes
+            TreeNode parent = null;
+            TreeNode current = root;
+
+            //where to place
+            while(current.left != null || current.right != null) {
+
+                //determine which way
+                if(addMe.compareTo(current.parrot) < 0) { 
+                    //going left
+                    parent = current;
+                    current = current.left;
+                } else if(addMe.compareTo(current.parrot) > 0) {
+                    //going right
+                    parent = current;
+                    current = current.right;
+                } else {
+                    //found duplicate
+                    return false;
+                }
+
+            } //while not at bottom
+
+            TreeNode creating = new TreeNode(addMe);
+
+            if(addMe.compareTo(parent.parrot) < 0) {
+                //place left
+                parent.left = creating;
+            } else {
+                //place right
+                parent.right = creating;
+            } //place where belongs
+            
+            
+        } // else not putting in root
+
         return true;
 
     } //insert / Binary tree class
+
+    public void levelOrder() {
+
+        if(root != null) {
+
+            Queue<TreeNode> treeQueue = new LinkedList<>();
+            treeQueue.offer(root);
+
+            while(!treeQueue.isEmpty()) {
+
+                TreeNode placeHolder = treeQueue.remove();
+                System.out.println(placeHolder.parrot.sing());
+
+                if(placeHolder.left != null) {
+                    treeQueue.offer(placeHolder.left);
+                } //maybe add left
+
+                if(placeHolder.right != null) {
+                    treeQueue.offer(placeHolder.right);
+                } //maybe add right
+
+            } //while not empty
+
+        } //if elements in tree
+
+    } //level order / binary tree class
+
+    public void visitLeaves() {
+
+        
+
+    } //public visit leaves / binary trees class
+
+    private void visitLeaves(TreeNode aNode) {
+
+
+
+    } //Private visit leaves / binary tree class
 
     //private inner node class
     private class TreeNode {
